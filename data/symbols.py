@@ -1,0 +1,57 @@
+"""Nifty 200 stock symbols for NSE."""
+
+NIFTY_50 = [
+    "ADANIENT", "ADANIPORTS", "APOLLOHOSP", "ASIANPAINT", "AXISBANK",
+    "BAJAJ-AUTO", "BAJFINANCE", "BAJAJFINSV", "BEL", "BPCL",
+    "BHARTIARTL", "BRITANNIA", "CIPLA", "COALINDIA", "DIVISLAB",
+    "DRREDDY", "EICHERMOT", "ETERNAL", "GRASIM", "HCLTECH",
+    "HDFCBANK", "HDFCLIFE", "HEROMOTOCO", "HINDALCO", "HINDUNILVR",
+    "ICICIBANK", "ITC", "INDUSINDBK", "INFY", "JSWSTEEL",
+    "KOTAKBANK", "LT", "M&M", "MARUTI", "NTPC",
+    "NESTLEIND", "ONGC", "POWERGRID", "RELIANCE", "SBILIFE",
+    "SBIN", "SHRIRAMFIN", "SUNPHARMA", "TCS", "TATACONSUM",
+    "TATAMOTORS", "TATASTEEL", "TECHM", "TITAN", "WIPRO",
+]
+
+NIFTY_NEXT_150 = [
+    "ABB", "ABBOTINDIA", "ABCAPITAL", "ABFRL", "ACC",
+    "ADANIGREEN", "ADANIPOWER", "ALKEM", "AMBUJACEM", "APLAPOLLO",
+    "ASHOKLEY", "ASTRAL", "ATUL", "AUBANK", "AUROPHARMA",
+    "BALKRISIND", "BANDHANBNK", "BANKBARODA", "BATAINDIA", "BERGEPAINT",
+    "BHARATFORG", "BIOCON", "BOSCHLTD", "CANBK", "CGPOWER",
+    "CHOLAFIN", "COLPAL", "CONCOR", "COROMANDEL", "CROMPTON",
+    "CUMMINSIND", "DLF", "DABUR", "DELHIVERY", "DIXON",
+    "ESCORTS", "FEDERALBNK", "FORTIS", "GAIL", "GODREJCP",
+    "GODREJPROP", "HAL", "HAVELLS", "HINDPETRO", "IDFCFIRSTB",
+    "IEX", "IIFL", "INDHOTEL", "INDIGO", "IOC",
+    "IRCTC", "IRFC", "INDUSTOWER", "JINDALSTEL", "JUBLFOOD",
+    "KPITTECH", "LICI", "LTIM", "LTTS", "LUPIN",
+    "MFSL", "MGL", "MANKIND", "MARICO", "MAXHEALTH",
+    "MPHASIS", "MRF", "MUTHOOTFIN", "NAUKRI", "NHPC",
+    "NMDC", "OBEROIRLTY", "OFSS", "OIL", "PAGEIND",
+    "PAYTM", "PEL", "PERSISTENT", "PETRONET", "PFC",
+    "PIDILITIND", "PIIND", "PNB", "POLYCAB", "PRESTIGE",
+    "RAMCOCEM", "RECLTD", "SAIL", "SBICARD", "SRF",
+    "SIEMENS", "SONACOMS", "STARHEALTH", "SUNDARMFIN", "SUPREMEIND",
+    "SYNGENE", "TATACOMM", "TATAELXSI", "TATAPOWER", "TATACHEM",
+    "TORNTPHARM", "TORNTPOWER", "TRENT", "TVSMOTOR", "UBL",
+    "ULTRACEMCO", "UNIONBANK", "UNITDSPR", "UPL", "VEDL",
+    "VOLTAS", "YESBANK", "ZOMATO", "ZYDUSLIFE",
+]
+
+NIFTY_200 = NIFTY_50 + NIFTY_NEXT_150
+
+
+def get_symbols(universe="nifty200"):
+    """Get stock symbols with .NS suffix for yfinance."""
+    mapping = {
+        "nifty50": NIFTY_50,
+        "nifty200": NIFTY_200,
+    }
+    symbols = mapping.get(universe, NIFTY_200)
+    return [f"{s}.NS" for s in symbols]
+
+
+def symbol_display_name(yf_symbol):
+    """Remove .NS suffix for display."""
+    return yf_symbol.replace(".NS", "")
