@@ -120,8 +120,11 @@ def format_overview_df(scan_df):
         short = col.replace("_Label", "")
         display.rename(columns={col: f"{short} Sig"}, inplace=True)
 
-    # Round numeric columns
+    # Round and format numeric columns to 2 decimal places
     numeric_cols = display.select_dtypes(include="number").columns
-    display[numeric_cols] = display[numeric_cols].round(2)
+    for col in numeric_cols:
+        display[col] = display[col].apply(
+            lambda x: f"{x:.2f}" if pd.notna(x) else x
+        )
 
     return display
