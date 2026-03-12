@@ -18,6 +18,7 @@ def build_stock_chart(df, symbol_name):
             "DMI/ADX (14,14)", "OBV", "ROC Diff (5,16,3)",
             "ATR (14,34)", "MACD (12,26,9)"
         ],
+        specs=[[{"secondary_y": True}]] + [[{"secondary_y": False}]] * 7,
     )
 
     # --- Panel 1: Line chart + EMA ---
@@ -33,7 +34,7 @@ def build_stock_chart(df, symbol_name):
             line=dict(color="#2196F3", width=1),
         ), row=1, col=1)
 
-    # Volume as bar chart overlay — highlight spurts in orange
+    # Volume as bar chart overlay on secondary y-axis — highlight spurts in orange
     vol_colors = []
     for i in range(len(df)):
         row = df.iloc[i]
@@ -45,8 +46,8 @@ def build_stock_chart(df, symbol_name):
             vol_colors.append("#ef5350")
     fig.add_trace(go.Bar(
         x=df.index, y=df["Volume"], name="Volume",
-        marker_color=vol_colors, opacity=0.4,
-    ), row=1, col=1)
+        marker_color=vol_colors, opacity=0.3,
+    ), row=1, col=1, secondary_y=True)
 
     # Mark impulse candles with triangles on the price chart
     if "Impulse_Dir" in df.columns:
@@ -207,6 +208,11 @@ def build_stock_chart(df, symbol_name):
             marker_color=hist_colors,
         ), row=8, col=1)
         fig.add_hline(y=0, line_dash="dash", line_color="gray", opacity=0.5, row=8, col=1)
+
+    # Scale volume so bars stay in bottom ~30% of price panel
+    fig.update_yaxes(secondary_y=True, row=1, col=1,
+                     showgrid=False, showticklabels=False,
+                     range=[0, df["Volume"].max() * 3.5])
 
     # Layout
     fig.update_layout(
