@@ -92,7 +92,7 @@ def volume_spurt_signal(values):
     spurt = values.get("Vol_Spurt", False)
     ratio = values.get("Vol_Ratio", 0)
     if spurt:
-        return 0, f"Spurt {ratio:.1f}x"
+        return 0, f"Spurt {ratio:.2f}x"
     return 0, "Normal"
 
 

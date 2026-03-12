@@ -65,12 +65,12 @@ def render(scan_df, stock_data):
     key_vals = [
         ("Close", f"₹{values['Close']:,.2f}"),
         ("Change", f"{values['Change%']:+.2f}%"),
-        ("RSI 14", f"{values['RSI_14']:.1f}"),
-        ("SMI", f"{values['SMI']:.1f}"),
-        ("ADX", f"{values['ADX']:.1f}"),
+        ("RSI 14", f"{values['RSI_14']:.2f}"),
+        ("SMI", f"{values['SMI']:.2f}"),
+        ("ADX", f"{values['ADX']:.2f}"),
         ("MACD Hist", f"{values['MACD_Hist']:.2f}"),
-        ("Body%", f"{values['Body_Ratio']*100:.0f}%"),
-        ("Vol Ratio", f"{values['Vol_Ratio']:.1f}x"),
+        ("Body%", f"{values['Body_Ratio']*100:.2f}%"),
+        ("Vol Ratio", f"{values['Vol_Ratio']:.2f}x"),
     ]
     for i, (label, val) in enumerate(key_vals):
         with kv_cols[i]:
